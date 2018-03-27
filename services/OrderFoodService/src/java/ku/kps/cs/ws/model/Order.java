@@ -8,6 +8,15 @@ public class Order {
     private Timestamp orderDate;
     private String tableId;
     private String statusId;
+    private float totalPrice;
+
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public int getOrderId() {
         return orderId;
