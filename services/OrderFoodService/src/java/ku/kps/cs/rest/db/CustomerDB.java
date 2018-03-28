@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import ku.kps.cs.ws.model.Menu;
 import ku.kps.cs.ws.model.Order;
 import ku.kps.cs.ws.model.OrderDetail;
+import ku.kps.cs.ws.model.Table;
 
 public class CustomerDB {
 
@@ -129,28 +131,71 @@ public class CustomerDB {
             return orderDetailList;
         }
     }
-
-    public List<Map<String, Object>> searchOrderDetailByOrderId2(int orderId) {
-
-        List<Map<String, Object>> list = null;
-
-        String query = "Select * FROM order_detail where OrderId='" + orderId + "'";
+    
+    public static int deleteOrderDetail(int orderId,String menuId){
+          int res = 0;
         try {
+            String query = "DELETE FROM order_detail WHERE orderId='"+orderId+"' and MenuId='"+menuId+"'";
+            Connection conn = getDBConnection();
+            PreparedStatement prepareStmt = conn.prepareStatement(query);
+            res = prepareStmt.executeUpdate();
+            conn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return res;
 
+    }
+    
+    public static List<Menu> listMenuAll(){
+          List<Menu> menuList =new ArrayList<Menu>();
+        String query = "SELECT * FROM menu";
+        try {
             Connection con = getDBConnection();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            //   list = rs.list();
-
+            while (rs.next()) {
+                Menu menu = new Menu();
+                menu.setMenuId(rs.getString("MenuId"));
+                menu.setMeNuName(rs.getString("name"));
+                menu.setPrice(rs.getFloat("price"));
+                menuList.add(menu);           
+            }
             con.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            return list;
+            return menuList;
         }
-
+        
     }
+    
+    public static List<Table> listTableAll(){
+          List<Table> tableList =new ArrayList<Table>();
+        String query = "SELECT * FROM table_number";
+        try {
+            Connection con = getDBConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {     
+                    Table table =new Table();
+                    table.setTableId(rs.getString("TableId"));
+                    table.setTableName(rs.getString("name"));
+                    tableList.add(table);
+            }
+            con.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            return tableList;
+        }
+        
+    }
+
+  
 
 }

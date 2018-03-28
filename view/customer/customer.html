@@ -17,17 +17,22 @@
 
 <body>
     <h1>Order Form</h1>   
+    <label>No.:</label> 
     <input id="orderId" type="text" value="8" >
     <label>tableId:</label> 
     <input id="tableId" type="text" value="" placeholder="tableId">
+    <select id="tableList" onchange="getTableId()">
+    </select>
     <br/>
     
   
     <br/>
     <br/>
     <label>MenuId:</label>
-    <input id="menuId" type="text" value="" placeholder="Menu"> <label>Num:</label>
-    <input id="num" type="number" value="" placeholder="num"> <button onclick="insertOrderDetail()">submit </button>
+    <select id="menuList" onchange="getMunuId()">
+      </select>
+    <input id="menuId" type="hidden" value="" placeholder="Menu"> <label>Num:</label>
+    <input id="num" type="number" value="1" placeholder="num"> <button onclick="insertOrderDetail()">submit </button>
     <br/>
     <h2>Order Detail List</h2>
     <table >
@@ -49,6 +54,7 @@
     <input id="totalPrice" type="text" value="" placeholder="totalPrice">
     <br/>
     <button onclick="doSent()">send menu </button>
+    <button onclick="listMenu()">list menu </button>
 </body>
 
 

@@ -16,6 +16,8 @@ import ku.kps.cs.ws.model.Order;
 import ku.kps.cs.ws.model.OrderDetail;
 import java.util.Date;
 import java.util.List;
+import ku.kps.cs.ws.model.Menu;
+import ku.kps.cs.ws.model.Table;
 
 @Path("/customer")
 public class CustomerResource {
@@ -82,6 +84,43 @@ public class CustomerResource {
                        + "\"price\":" + "\"" + orderDetail.getPrice() + "\"" + ", "
                      + "\"num\":" + "\"" + orderDetail.getNum() + "\"" + "}";
                     
+        }
+        return Response.status(200).entity(result).build();
+    }
+    
+    @POST
+    @Path("/deleteOrderDetail")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response deleteOrderDetail(@FormParam("orderId") int orderId,@FormParam("menuId") String menuId){
+        int res =CustomerDB.deleteOrderDetail(orderId, menuId);
+         String result = "SUCCESS";
+         return Response.status(Response.Status.OK).entity(result).build();
+        
+    }
+    
+    @POST
+    @Path("/listMenu")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response listMenuAll() {
+        String result = "";      
+        List<Menu> menuList =CustomerDB.listMenuAll();
+        for (Menu menu : menuList) {
+            result += ",{\"id\":" + "\"" + menu.getMenuId()+ "\"" + ", "
+                      + "\"menuName\":" + "\"" + menu.getMeNuName() + "\"" + ", "
+                     + "\"price\":" + "\"" + menu.getPrice()+ "\"" + "}";                  
+        }
+        return Response.status(200).entity(result).build();
+    }
+    
+    @POST
+    @Path("/listTableNO")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response listTableNOAll() {
+        String result = "";      
+        List<Table> tableList =CustomerDB.listTableAll();
+        for (Table table: tableList) {
+            result += ",{\"id\":" + "\"" + table.getTableId()+ "\"" + ", "
+                     + "\"name\":" + "\"" + table.getTableName()+ "\"" + "}";                  
         }
         return Response.status(200).entity(result).build();
     }
