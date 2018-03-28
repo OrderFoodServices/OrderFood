@@ -6,7 +6,9 @@ public class OrderDetail {
     private int orderId;
     private String menuId;
     private int num;
-    private float totalPrice;
+    //
+    private String menuName;
+    private float price;
 
     public int getOrderId() {
         return orderId;
@@ -31,14 +33,26 @@ public class OrderDetail {
     public void setNum(int num) {
         this.num = num;
     }
+    //
 
-    public float getTotalPrice() {
-        return totalPrice;
+    public String getMenuName() {
+        return menuName;
     }
 
-    public void setTotalPrice(float totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
     }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+    
+
+ 
     
     
 

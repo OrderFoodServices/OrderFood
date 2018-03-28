@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/customer.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Order Form</h1>   
+    <label>No.:</label> 
+    <input id="orderId" type="text" value="8" >
+    <label>tableId:</label> 
+    <input id="tableId" type="text" value="" placeholder="tableId">
+    <select id="tableList" onchange="getTableId()">
+    </select>
+    <br/>
+    
+  
+    <br/>
+    <br/>
+    <label>MenuId:</label>
+    <select id="menuList" onchange="getMunuId()">
+      </select>
+    <input id="menuId" type="hidden" value="" placeholder="Menu"> <label>Num:</label>
+    <input id="num" type="number" value="1" placeholder="num"> <button onclick="insertOrderDetail()">submit </button>
+    <br/>
+    <h2>Order Detail List</h2>
+    <table >
+            <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>Price/Unit</th>
+                    <th>Num</th>
+                    <th>Price</th>
+                   
+                    <th>Action</th>
+                   
+                </tr>
+                <tbody id="myTable">
+                </tbody>
+    </table>
+    <br/>
+    <label>totalPrice:</label>
+    <input id="totalPrice" type="text" value="" placeholder="totalPrice">
+    <br/>
+    <button onclick="doSent()">send menu </button>
+    <button onclick="listMenu()">list menu </button>
+</body>
+
+
+</html>
