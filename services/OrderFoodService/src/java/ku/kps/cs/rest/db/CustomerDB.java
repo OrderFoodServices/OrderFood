@@ -1,6 +1,7 @@
 //Aunchalee
 package ku.kps.cs.rest.db;
 
+import com.mysql.jdbc.Driver;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import ku.kps.cs.ws.model.Menu;
 import ku.kps.cs.ws.model.Order;
 import ku.kps.cs.ws.model.OrderDetail;
@@ -22,12 +27,15 @@ public class CustomerDB {
 
     private static Logger log = Logger.getLogger("InfoLogging");
 
-    public static Connection getDBConnection() throws ClassNotFoundException, SQLDataException, SQLException {
-        String dbUrl = "jdbc:mysql://192.168.43.186/order_food";
-        String dbClass = "com.mysql.jdbc.Driver";
-        String userName = "root", password = "PASSWORD";
-        Class.forName(dbClass);
-        Connection con = DriverManager.getConnection(dbUrl, userName, password);
+    public static Connection getDBConnection() throws NamingException, SQLException {
+//        String dbUrl = "jdbc:mysql://192.168.43.186/order_food";
+//        String dbClass = "com.mysql.jdbc.Driver";
+//        String userName = "root", password = "PASSWORD";
+//        Class.forName(dbClass);
+//        Connection con = DriverManager.getConnection(dbUrl, userName, password);
+        InitialContext ctx = new InitialContext();
+        DataSource ds = (DataSource) ctx.lookup("jdbc/MyServices");
+        Connection con = ds.getConnection();
         return con;
     }
 
@@ -91,8 +99,6 @@ public class CustomerDB {
                 maxId = idMax.getInt(1);
             }
             System.out.println(maxId);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -123,19 +129,17 @@ public class CustomerDB {
             }
 
             con.close();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             return orderDetailList;
         }
     }
-    
-    public static int deleteOrderDetail(int orderId,String menuId){
-          int res = 0;
+
+    public static int deleteOrderDetail(int orderId, String menuId) {
+        int res = 0;
         try {
-            String query = "DELETE FROM order_detail WHERE orderId='"+orderId+"' and MenuId='"+menuId+"'";
+            String query = "DELETE FROM order_detail WHERE orderId='" + orderId + "' and MenuId='" + menuId + "'";
             Connection conn = getDBConnection();
             PreparedStatement prepareStmt = conn.prepareStatement(query);
             res = prepareStmt.executeUpdate();
@@ -146,9 +150,9 @@ public class CustomerDB {
         return res;
 
     }
-    
-    public static List<Menu> listMenuAll(){
-          List<Menu> menuList =new ArrayList<Menu>();
+
+    public static List<Menu> listMenuAll() {
+        List<Menu> menuList = new ArrayList<Menu>();
         String query = "SELECT * FROM menu";
         try {
             Connection con = getDBConnection();
@@ -159,43 +163,37 @@ public class CustomerDB {
                 menu.setMenuId(rs.getString("MenuId"));
                 menu.setMeNuName(rs.getString("name"));
                 menu.setPrice(rs.getFloat("price"));
-                menuList.add(menu);           
+                menuList.add(menu);
             }
             con.close();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             return menuList;
         }
-        
+
     }
-    
-    public static List<Table> listTableAll(){
-          List<Table> tableList =new ArrayList<Table>();
+
+    public static List<Table> listTableAll() {
+        List<Table> tableList = new ArrayList<Table>();
         String query = "SELECT * FROM table_number";
         try {
             Connection con = getDBConnection();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {     
-                    Table table =new Table();
-                    table.setTableId(rs.getString("TableId"));
-                    table.setTableName(rs.getString("name"));
-                    tableList.add(table);
+            while (rs.next()) {
+                Table table = new Table();
+                table.setTableId(rs.getString("TableId"));
+                table.setTableName(rs.getString("name"));
+                tableList.add(table);
             }
             con.close();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             return tableList;
         }
-        
-    }
 
-  
+    }
 
 }
