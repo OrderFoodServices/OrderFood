@@ -107,6 +107,7 @@ public class CustomerResource {
         for (Menu menu : menuList) {
             result += ",{\"id\":" + "\"" + menu.getMenuId()+ "\"" + ", "
                       + "\"menuName\":" + "\"" + menu.getMeNuName() + "\"" + ", "
+                      + "\"img\":" + "\"" + menu.getImg() + "\"" + ", "
                      + "\"price\":" + "\"" + menu.getPrice()+ "\"" + "}";                  
         }
         return Response.status(200).entity(result).build();

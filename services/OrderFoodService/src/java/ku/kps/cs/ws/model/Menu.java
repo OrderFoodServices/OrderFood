@@ -5,6 +5,8 @@ public class Menu {
     private String menuId;
     private String meNuName;
     private float price;
+    private String img;
+    
 
     public String getMenuId() {
         return menuId;
@@ -28,6 +30,14 @@ public class Menu {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
     
     

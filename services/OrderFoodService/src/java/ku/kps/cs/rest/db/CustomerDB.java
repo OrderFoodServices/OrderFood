@@ -163,6 +163,7 @@ public class CustomerDB {
                 menu.setMenuId(rs.getString("MenuId"));
                 menu.setMeNuName(rs.getString("name"));
                 menu.setPrice(rs.getFloat("price"));
+                menu.setImg(rs.getString("img"));
                 menuList.add(menu);
             }
             con.close();
