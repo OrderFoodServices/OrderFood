@@ -9,6 +9,7 @@ public class Order {
     private String tableId;
     private String statusId;
     private float totalPrice;
+    private String statusName;
 
     public float getTotalPrice() {
         return totalPrice;
@@ -48,6 +49,14 @@ public class Order {
 
     public void setStatusId(String statusId) {
         this.statusId = statusId;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
     
     

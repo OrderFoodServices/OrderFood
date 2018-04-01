@@ -41,6 +41,7 @@
     <input id="orderId" type="hidden" value="8">
     <input id="num" type="hidden" value="1" placeholder="num">
     <input id="listSer" style="color: black;" type="hidden" value="">
+    <input id="tableId" type="hidden" value="2" placeholder="tableId">
 
 
     <div id="menu" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -111,8 +112,31 @@
                     Order now</a> on items to send your order!
 
             </p>
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row" >
+                <div class="col-md-6" id="rowListOrder">
+                    <table class="table mt-3">
+                        <!-- <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead> -->
+                        <tbody id=listOrder>
+                        </tbody>
+                        <!-- <tbody>
+                            <label>Table Number: &nbsp;</label>
+                            <input id="tableId" type="hidden" value="2" placeholder="tableId">
+                            <select id="tableList" onchange="getTableId()">
+                            </select>
+                        </tbody> -->
+                    </table>
+                </div>
+                <!-- col-md-6 -->
+
+                <div class="col-md-6" id="rowListOrderDetail" style="display:none;">
+                    <h6>ORDER REVIEW</h6>
                     <table class="table mt-3">
                         <thead>
                             <tr>
@@ -120,32 +144,46 @@
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody id=listOrder>
+                        <tbody id=myTable>
 
 
 
                         </tbody>
-                        <tbody>
-                            <label>Table Number: &nbsp;</label>
-                            <input id="tableId" type="hidden" value="" placeholder="tableId">
-                            <select id="tableList" onchange="getTableId()">
-                            </select>
-                        </tbody>
+
 
                     </table>
+                </div>
 
+                <div class="col-md-5 col-md-offset-1">
+                    
+                   
+                    <h6>ORDER LIST</h6>
+                    <table class="table mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Date/Time</th>
+                                <th scope="col">Order No.</th>
+                                <th scope="col">Status</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderListAll">
+                     
+                        </tbody>
+                    </table>
+                
 
                 </div>
                 <!-- col-md-6 -->
-                <div class="col-md-5 col-md-offset-1">
+            </div>
+            <div class="row">
+              
+                <!-- col-md-6 -->
 
-                    <h3>
-                        <i class="fa fa-clock-o fa-fw"></i>Hours</h3>
-
-
-                </div>
                 <!-- col-md-6 -->
             </div>
             <!-- /.services -->
@@ -160,11 +198,11 @@
             <div class="row text-center services-3">
                 <div class="col-sm-12">
                     <div class="col-wrapper">
-                        <div class="icon-border bm10">
+                        <!-- <div class="icon-border bm10">
                             <i class="fa fa-beer"></i>
                         </div>
                         <h4>796518</h4>
-                        <p>Mug of Beer Sold</p>
+                        <p>Mug of Beer Sold</p> -->
                     </div>
                 </div>
             </div>

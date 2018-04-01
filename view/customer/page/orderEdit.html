@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <title>EDIT ORDER</title>
+
+    <!-- meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- css -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../assets/css/ready.css">
+    <link rel="stylesheet" href="../assets/css/demo.css">
+
+
+    <!-- google font -->
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Kreon:300,400,700'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+
+    <!-- js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/orderEdit.js"></script>
+
+</head>
+
+<body data-spy="scroll" data-target="#navbar" data-offset="120">
+
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <input id="orderId" type="hidden" value="8">
+    <input id="num" type="hidden" value="1" placeholder="num">
+    <input id="listSer" style="color: black;" type="hidden" value="">
+    <input id="tableId" type="hidden" value="2" placeholder="tableId">
+
+
+
+    <!-- menu -->
+
+
+    <!-- /#food-menu -->
+    <div id="your-order" class="light-wrapper">
+        <section class="ss-style-top"></section>
+        <div class="container inner">
+            <h2 class="section-title text-center">Edit Order</h2>
+            <!-- <p class="lead main text-center"> select table number and click on
+                <a class="btn btn-danger btn-xs" disabled="disabled" onclick="">
+                    Order now</a> on items to send your order!
+
+            </p> -->
+            <div class="row">
+                <div class="col-md-6" id="rowListOrder">
+                    <div class="card-body">
+
+                        <input id="orderId_" type="hidden" value="" disabled>
+                        <input id="menuId_" type="hidden" value="" disabled>
+                        <br/>
+
+                        <label>Menu:</label>
+                        <input id="menuName" type="text" value="" disabled>
+                        <br/>
+                        <label>Price/Unit:</label>
+                        <input id="price" type="number" value="" disabled>
+                        <br/>
+                        <label>Num:</label>
+                        <input id="num_" type="number" value="">
+                        <br/>
+                        <!-- <label>Total Price:</label>
+                        <input id="total" type="text" value="" >
+                        <br/> -->
+                        <button onclick="updateData()">Update Data</button>
+                    </div>
+
+
+
+                </div>
+                <!-- col-md-6 -->
+                <div class="col-md-5 col-md-offset-1">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody id=listDetail>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- col-md-6 -->
+            </div>
+            <div class="row">
+
+                <!-- col-md-6 -->
+
+                <!-- col-md-6 -->
+            </div>
+            <!-- /.services -->
+        </div>
+        <!-- /.container -->
+        <section class="ss-style-bottom"></section>
+    </div>
+    <!-- #your-order -->
+
+    <div id="facts" class="parallax parallax2 facts">
+        <div class="container inner">
+            <div class="row text-center services-3">
+                <div class="col-sm-12">
+                    <div class="col-wrapper">
+                        <!-- <div class="icon-border bm10">
+                            <i class="fa fa-beer"></i>
+                        </div>
+                        <h4>796518</h4>
+                        <p>Mug of Beer Sold</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- #facts -->
+
+</body>
+
+</html>

@@ -136,10 +136,11 @@ public class CustomerDB {
         }
     }
 
-    public static int deleteOrderDetail(int orderId, String menuId) {
+    public static int deleteOrder(int orderId) {
         int res = 0;
         try {
-            String query = "DELETE FROM order_detail WHERE orderId='" + orderId + "' and MenuId='" + menuId + "'";
+            String query = "DELETE order_food.order , order_detail  FROM order_food.order  INNER JOIN order_detail  \n"
+                    + "WHERE order_food.order.orderId= order_detail. orderId and order_food.order.orderId ='" + orderId + "'";
             Connection conn = getDBConnection();
             PreparedStatement prepareStmt = conn.prepareStatement(query);
             res = prepareStmt.executeUpdate();
@@ -195,6 +196,81 @@ public class CustomerDB {
             return tableList;
         }
 
+    }
+
+    public static List<Order> searchOrderBytableId(String tableId) {
+        log.info("init methodDB");
+        List<Order> orderList = new ArrayList<Order>();
+        String query = "SELECT order_food.order.OrderId,\n"
+                + "order_food.order.OrderDate,order_food.order.TableId,order_food.order.TotalPrice\n"
+                + ",order_food.status.StatusName FROM order_food.`order`\n"
+                + "INNER JOIN status ON order_food.order.StatusId =status.StatusId \n"
+                + "and(order_food.order.StatusId='1' or '2' or '4') and TableId='" + tableId + "'";
+        try {
+
+            Connection con = getDBConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Order order = new Order();
+                order.setOrderId(rs.getInt("OrderId"));
+                order.setOrderDate(rs.getTimestamp("OrderDate"));
+                order.setStatusName(rs.getString("StatusName"));
+                order.setTableId(rs.getString("TableId"));
+                order.setTotalPrice(rs.getFloat("TotalPrice"));
+                orderList.add(order);
+
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            return orderList;
+        }
+    }
+
+    public static List<OrderDetail> searchOrderByOrderIdAndMunuId(int orderId, String menuId) {
+
+        List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
+        String query = "Select order_detail.OrderId,order_detail.num,menu.name,menu.price,order_detail.MenuId\n"
+                + "FROM order_detail INNER JOIN menu where order_detail.MenuId=\n"
+                + "menu.MenuId and order_detail.OrderId='" + orderId + "' and order_detail.MenuId='" + menuId + "'";
+        try {
+
+            Connection con = getDBConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setOrderId(rs.getInt("OrderId"));
+                orderDetail.setMenuId(rs.getString("MenuId"));
+                orderDetail.setMenuName(rs.getString("name"));
+                orderDetail.setNum(rs.getInt("num"));
+                orderDetail.setPrice(rs.getFloat("price"));
+                orderDetailList.add(orderDetail);
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            return orderDetailList;
+        }
+    }
+
+    public static int updateOrderDetail(int orderId, String menuId, int num) {
+        int res = 0;
+        try {
+            String query = "UPDATE order_food.order_detail set order_food.order_detail.num ='" + num + "' \n"
+                    + "where order_detail.OrderId='" + orderId + "' and order_detail.MenuId='" + menuId + "';";
+            Connection conn = getDBConnection();
+            PreparedStatement prepareStmt = conn.prepareStatement(query);
+            res = prepareStmt.executeUpdate();
+            conn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return res;
     }
 
 }
