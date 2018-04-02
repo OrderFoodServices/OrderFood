@@ -4,16 +4,16 @@ package ku.kps.cs.ws.model;
 import java.sql.Timestamp;
 
 public class Order {
-    private int orderId;
+    private String orderId;
     private Timestamp orderDate;
     private String tableId;
     private String statusId;
 
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 

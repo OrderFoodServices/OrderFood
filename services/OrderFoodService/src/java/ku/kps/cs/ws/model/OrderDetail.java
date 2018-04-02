@@ -3,16 +3,18 @@ package ku.kps.cs.ws.model;
 
 public class OrderDetail {
 
-    private int orderId;
+    private String orderId;
     private String menuId;
     private int num;
     private float totalPrice;
+    private int price;
+    private int amount;
 
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -40,6 +42,20 @@ public class OrderDetail {
         this.totalPrice = totalPrice;
     }
     
+    public int getPrice(){
+        return price;
+    }
+    public void setPrice(int price){
+        this.price = price;
+    }
+    
+    public int getAmount(){
+        return amount;
+    }
+    
+    public void setAmount(int amount){
+        this.amount = amount;
+    }
     
 
 }
