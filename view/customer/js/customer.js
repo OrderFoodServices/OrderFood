@@ -1,20 +1,19 @@
-getId();
-listMenu();
-//init();
-function init(){
-    var urlParams = new URLSearchParams(window.location.search);
-    var tableId = urlParams.get('tableId');
-    alert(tableId);
-   // orderListAll(tableId);
+
+
+init();
+function init() {
+    getId();
+    listMenu();
+   
 
 }
 
 //orderListAll(key);
 //listTableNO();
-function searchOrderDetailByOrderId(orderId,tableId) {
+function searchOrderDetailByOrderId(orderId, tableId) {
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/OrderFoodService/rest/customer/searchOrderDetailByOrderId",
+        url: "http://192.168.43.94:8080/OrderFoodService/rest/customer/searchOrderDetailByOrderId",
         data: { 'orderId': orderId },
         success: function (data) {
             var mytable = "";
@@ -24,6 +23,7 @@ function searchOrderDetailByOrderId(orderId,tableId) {
             var json = '[' + str + ']';
             obj = JSON.parse(json);
             var mytable = "";
+
 
             for (i = 0; i < obj.length; i++) {
                 number++;
@@ -37,8 +37,9 @@ function searchOrderDetailByOrderId(orderId,tableId) {
             var strTotal = '<tr><td></td><td ></td> <td>Total</td><td>' + totalPrice + '&nbsp;฿</td></tr>'
                 + '<tr><td></td><td ></td><td ><button class="btn btn-success btn-xs" onclick="submitOrder(' + tableId + ')" >Submit</button>'
                 + '</td> <td><button class="btn btn-danger btn-xs" onclick="deleteOrder(\'' + tableId + '\',' + orderId + ')" >Cancel Order</button></td></tr>'
-           
-                document.getElementById("myTable").innerHTML = mytable + strTotal;
+
+            document.getElementById("myTable").innerHTML = mytable + strTotal;
+
         },
         error: function (e) {
             alert("Error");
@@ -50,11 +51,11 @@ function getId() {
     //  alert(idStd);
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/OrderFoodService/rest/customer/getIdOrder",
+        url: "http://192.168.43.94:8080/OrderFoodService/rest/customer/getIdOrder",
         data: {
         },
         success: function (data) {
-            alert(data);
+            swal("Welcome to Restaurant!", "...and click on order now on item to start your order!!");
             document.getElementById("orderId").value = data;
         },
         error: function (e) {
@@ -68,7 +69,7 @@ function sendOrder(orderId, tableId, totalPrice) {
     $.ajax({
 
         type: "POST",
-        url: "http://localhost:8080/OrderFoodService/rest/customer/insertOrder",
+        url: "http://192.168.43.94:8080/OrderFoodService/rest/customer/insertOrder",
         data: {
             'orderId': orderId,
             'tableId': tableId,
@@ -84,42 +85,43 @@ function sendOrder(orderId, tableId, totalPrice) {
     });
 
 }
-function editAmount(menuId,orderId) {
-    window.open("page/orderEdit.html?orderId=" + orderId+"&menuId="+menuId);
+function editAmount(menuId, orderId) {
+    window.open("page/orderEdit.html?orderId=" + orderId + "&menuId=" + menuId);
 }
 function insertOrderDetail(orderId, menuId, amount) {
 
     $.ajax({
 
         type: "POST",
-        url: "http://localhost:8080/OrderFoodService/rest/customer/insertOrderDetail",
+        url: "http://192.168.43.94:8080/OrderFoodService/rest/customer/insertOrderDetail",
         data: {
             'orderId': orderId,
             'menuId': menuId,
             'num': amount,
         },
         success: function (data) {
-            // alert("SUCCESS");
+
         },
         error: function (e) {
             alert("Error");
         }
     });
 }
-function deleteOrder(tableId,orderId) {
-    alert(orderId);
-
+function deleteOrder(tableId, orderId) {
     $.ajax({
 
         type: "POST",
-        url: "http://localhost:8080/OrderFoodService/rest/customer/deleteOrder",
+        url: "http://192.168.43.94:8080/OrderFoodService/rest/customer/deleteOrder",
         data: {
             'orderId': orderId,
 
         },
         success: function (data) {
-           // location.reload();
-           orderListAll(tableId);
+            // location.reload();
+            orderListAll(tableId);
+            document.getElementById("rowListOrderDetail").style.display = "none";
+            document.getElementById("orderListDiv").style.display = "block";
+            swal("Cancel Already!", "", "success");
         },
         error: function (e) {
             alert("Error");
@@ -133,7 +135,7 @@ function listMenu() {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/OrderFoodService/rest/customer/listMenu",
+        url: "http://192.168.43.94:8080/OrderFoodService/rest/customer/listMenu",
         data: {
         },
         success: function (data) {
@@ -170,7 +172,7 @@ function listMenu() {
 function listTableNO() {
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/OrderFoodService/rest/customer/listTableNO",
+        url: "http://192.168.43.94:8080/OrderFoodService/rest/customer/listTableNO",
         data: {
         },
         success: function (data) {
@@ -207,7 +209,7 @@ function getMenu(menuId, name, img, price) {
     strCompar = '"menuId":' + menuId;
     var resSearch = listSer.search(strCompar);
     var data;
-    var i, amountNow, priceNow;
+    var i, amountNow=1, priceNow;
     if (resSearch != -1) {
         // Duplicate;
 
@@ -230,9 +232,11 @@ function getMenu(menuId, name, img, price) {
         var res = listSer.replace(strRemove, strNew);
         data = res;
         document.getElementById("listSer").value = res;
+        swal(" Order Now!", ""+ name +"("+price+" ฿)"+" X "+amountAdd, "success");
     } else {
         data = listSer + ',{"menuId":' + menuId + ',"amount":' + amount + ',"price":' + price + ',"img":"' + img + '",' + '"name":"' + name + '"}';
         document.getElementById("listSer").value = data;
+        swal(" Order Now!", ""+ name +"("+price+" ฿)"+" X "+amountNow, "success");
     }
 
     var str = data.slice(1);
@@ -253,6 +257,8 @@ function getMenu(menuId, name, img, price) {
     var listTotalPrice = '<tr><td></td><td></td> <td>Total Price</td> <td>' + totalPrice + '฿</td></tr>'
         + '<tr><td></td><td></td> <td></td><td><button class="btn btn-danger btn-normal btn-sm" onclick="orderNow(' + totalPrice + ')">Order Now</button></td></tr>';
     document.getElementById("listOrder").innerHTML = myList + listTotalPrice;
+    
+    
 }
 function removeMenu(menuId, amount, name, img, price) {
 
@@ -278,6 +284,8 @@ function removeMenu(menuId, amount, name, img, price) {
     var listTotalPrice = '<tr><td></td><td></td> <td>Total Price</td> <td>' + totalPrice + '฿</td></tr>'
         + '<tr><td></td><td></td> <td></td><td><button class="btn btn-danger btn-normal btn-sm" onclick="orderNow(' + totalPrice + ')">Order Now</button></td></tr>';
     document.getElementById("listOrder").innerHTML = myList + listTotalPrice;
+    swal("Remove Already!", "", "success");
+
 
 }
 function orderNow(totalPrice) {
@@ -292,28 +300,36 @@ function orderNow(totalPrice) {
         var menuId = obj[i].menuId;
         var amount = obj[i].amount;
         insertOrderDetail(orderId, menuId, amount)
+
     }
+
     sendOrder(orderId, tableId, totalPrice);
-    searchOrderDetailByOrderId(orderId,tableId);
+    swal("Already!", "and..please check your order!", "success");
+    searchOrderDetailByOrderId(orderId, tableId);
     //hide block
     document.getElementById("rowListOrder").style.display = "none";
     document.getElementById("rowListOrderDetail").style.display = "block";
+   
+
 
 
 }
 function submitOrder(tableId) {
     // location.reload();
-  //   key=document.getElementById("tableId").value;
-     orderListAll(tableId);
+    //   key=document.getElementById("tableId").value;
+    orderListAll(tableId);
     // window.location.href = window.location.href + "?tableId="+tableId;
-  
+    document.getElementById("rowListOrderDetail").style.display = "none";
+    document.getElementById("orderListDiv").style.display = "block";
+    swal("Already!", "Thank you!", "success");
+
 }
 
 function orderListAll(tableId) {
-  
+
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/OrderFoodService/rest/customer/searchOrderByTableId",
+        url: "http://192.168.43.94:8080/OrderFoodService/rest/customer/searchOrderByTableId",
         data: { 'tableId': tableId },
         success: function (data) {
             var mytable = "";
@@ -332,10 +348,10 @@ function orderListAll(tableId) {
                     + '<td>' + obj[i].statusName + '</td><td>'
                     + '<td><i class="la la-file" onclick="openBill()"></i></td></br>' + '</td></tr>';
             }
- 
+
             document.getElementById("orderListAll").innerHTML = mytable;
-         
-            
+
+
         },
         error: function (e) {
             alert("Error");
@@ -343,6 +359,6 @@ function orderListAll(tableId) {
     });
 }
 
-function openBill(){
+function openBill() {
     alert("init");
 }

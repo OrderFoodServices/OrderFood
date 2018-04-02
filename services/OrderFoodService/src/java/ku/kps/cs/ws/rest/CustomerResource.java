@@ -83,7 +83,7 @@ public class CustomerResource {
                     + "\"name\":" + "\"" + orderDetail.getMenuName() + "\"" + ", "
                     + "\"price\":" + "\"" + orderDetail.getPrice() + "\"" + ", "
                     + "\"num\":" + "\"" + orderDetail.getNum() + "\"" + "}";
-
+            System.out.println("Num");
         }
         return Response.status(200).entity(result).build();
     }

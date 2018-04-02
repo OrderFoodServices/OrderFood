@@ -6,7 +6,7 @@ function init() {
     var myStr = ""
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/OrderFoodService/rest/customer/searchOrderByOrderIdAndMenuId",
+        url: "http://192.168.43.94:8080/OrderFoodService/rest/customer/searchOrderByOrderIdAndMenuId",
         data: {
             'orderId': orderId,
             'menuId': menuId
@@ -47,7 +47,7 @@ function updateData() {
   
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/OrderFoodService/rest/customer/updateOrderDetail",
+        url: "http://192.168.43.94:8080/OrderFoodService/rest/customer/updateOrderDetail",
         data: {
             'orderId': orderId,
             'menuId': menuId,
@@ -68,7 +68,7 @@ function searchOrderByOrderIdAndMenuId(orderId,menuId){
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/OrderFoodService/rest/customer/searchOrderByOrderIdAndMenuId",
+        url: "http://192.168.43.94:8080/OrderFoodService/rest/customer/searchOrderByOrderIdAndMenuId",
         data: {
             'orderId': orderId,
             'menuId': menuId
